@@ -1,5 +1,10 @@
-package test;
-
+/**
+*ä»£ç ä¸­ æœ‰ä¸€äº›ä»£ç æ˜¯æ²¡æœ‰ç”¨çš„
+*é‡ç‚¹ï¼ša.æ—¶é—´ï¼Œæ•°é‡ï¼Œæš‚åœè¿™ä¸‰ç‚¹çš„é€»è¾‘å…³ç³»
+*     b.å¯ä»¥å¤šæ¬¡æš‚åœ
+*     c.å–æ¶ˆæš‚åœåè¦å°†ç„¦ç‚¹é‡æ–°å®šåˆ°æ¡†æ¶ä¸Š
+*ä»£ç å¯ä»¥ç›´æ¥è¿è¡Œã€‚ä½†æ˜¯èƒŒæ™¯å›¾ä¸bgm éœ€è¦å¦è¡Œè®¾ç½®ã€‚
+*/
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Color;
@@ -37,15 +42,15 @@ public class TypeGameFrame extends JFrame implements Runnable {
 	private static final long serialVersionUID = 112233445566L;
 	JPanel contentPane;
 	JPanel jMainPanel = new JPanel();
-	// ¿ªÊ¼¡¢½áÊø °´Å¥
+	// å¼€å§‹ã€ç»“æŸ æŒ‰é’®
 	JButton jBtnStart = new JButton();
 	JButton jBtnStop = new JButton();
-	JButton jBtnPause1 = new JButton(); // ÔİÍ£°´Å¥
-	JButton jBtnPause2 = new JButton(); // ÔİÍ£°´Å¥
+	JButton jBtnPause1 = new JButton(); // æš‚åœæŒ‰é’®
+	JButton jBtnPause2 = new JButton(); // æš‚åœæŒ‰é’®
 
-	JSlider jSlider1 = new JSlider(); // ËÙ¶ÈÌõ
-	JSlider jSlider2 = new JSlider(); // Ê±¼äÌõ
-	JSlider jSlider3 = new JSlider(); // ×Ö·ûÊıÁ¿
+	JSlider jSlider1 = new JSlider(); // é€Ÿåº¦æ¡
+	JSlider jSlider2 = new JSlider(); // æ—¶é—´æ¡
+	JSlider jSlider3 = new JSlider(); // å­—ç¬¦æ•°é‡
 
 	JLabel jLblRate1 = new JLabel();
 	JLabel jLblRate2 = new JLabel();
@@ -54,26 +59,26 @@ public class TypeGameFrame extends JFrame implements Runnable {
 	
 	Thread t ;
 	MyListener mylister;
-	boolean pause = true;
-	boolean fo = true;
-	int count = 1; // count µ±Ç°½øĞĞµÄ¸öÊı
-	int count_geshu = 20;
-	int time = 0;
-	long timeNum =0; //¶à´ÎÔİÍ£
-	long t1 = 0; // ¿ªÊ¼
-	long t2 = 0; // ÔİÍ£
-	long t3 = 0; // ÔİÍ£½áÊø
-	long t4 = 0; // ½áÊø
-	int rapidity = 80; // rapidity ÓÎ±êµÄÎ»ÖÃ
+	boolean pause = true;   //åˆ¤æ–­æ˜¯å¦ä½æš‚åœ	
+        boolean fo = true;     
+	int count = 1; // count å½“å‰è¿›è¡Œçš„ä¸ªæ•°
+	int count_geshu = 20;   //é»˜è®¤æ•°é‡	
+	int time = 0;           //é»˜è®¤æ—¶é—´æ®µ	
+        long timeNum =0; //å¤šæ¬¡æš‚åœ
+	long t1 = 0; // å¼€å§‹
+	long t2 = 0; // æš‚åœ
+	long t3 = 0; // æš‚åœç»“æŸ
+	long t4 = 0; // ç»“æŸ
+	int rapidity = 80; // rapidity æ¸¸æ ‡çš„ä½ç½®
 	int rapidity2 = 91;
 	int rapidity3 = 81;
-	// ´ò×ÖºóµÄ³É¹¦¸öÊıºÍÊ§°Ü¸öÊı
+	// æ‰“å­—åçš„æˆåŠŸä¸ªæ•°å’Œå¤±è´¥ä¸ªæ•°
 	int nTypedCorrectNum = 0;
 	int nTypedErrorNum = 0;
-	int rush[] = { 10, 20, 30 }; // ÓÎÏ·Ã¿¹ØµÄ¸öÊı ¿ÉÒÔ×ÔÓÉÌí¼Ó.ÁĞ { 10 ,20 ,30 ,40,50}
-	// ¼ÇÂ¼¹ØÊı
+	int rush[] = { 10, 20, 30 }; // æ¸¸æˆæ¯å…³çš„ä¸ªæ•° å¯ä»¥è‡ªç”±æ·»åŠ .åˆ— { 10 ,20 ,30 ,40,50}
+	// è®°å½•å…³æ•°
 	int rush_count = 0;
-	// Ëæ»ú³öÏÖµÄÊı×ÖÁĞ±í£¬¿ÉÒÔ×ÔÓÉÌí¼Ó
+	// éšæœºå‡ºç°çš„æ•°å­—åˆ—è¡¨ï¼Œå¯ä»¥è‡ªç”±æ·»åŠ 
 	char chrList[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
 			'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
@@ -87,7 +92,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 	public TypeGameFrame() {
 		try {
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			// -----------------ÉùÒôÎÄ¼ş---------------------
+			// -----------------å£°éŸ³æ–‡ä»¶---------------------
 			Musci_anjian = Applet.newAudioClip(new File("sounds//anjian.wav").toURL());
 			Music_shibai = Applet.newAudioClip(new File("sounds//shibai.wav").toURL());
 			Music_chenggong = Applet.newAudioClip(new File("sounds//chenggong.wav").toURL());
@@ -107,7 +112,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 		contentPane = (JPanel) getContentPane();
 		contentPane.setLayout(null);
 		setSize(new Dimension(800, 490));
-		setTitle("´ò×ÖÁ·Ï°");
+		setTitle("æ‰“å­—ç»ƒä¹ ");
 		ImageIcon icon = new ImageIcon("resource/images/poinfoedit.gif");
 		setIconImage(icon.getImage());
 
@@ -115,37 +120,37 @@ public class TypeGameFrame extends JFrame implements Runnable {
 		jMainPanel.setBounds(new Rectangle(4, 4, 573, 419));
 		jMainPanel.setLayout(null);
 
-		// ¿ªÊ¼
+		// å¼€å§‹
 		jBtnStart.setBounds(new Rectangle(580, 154, 164, 31));
-		jBtnStart.setText("¿ªÊ¼/ÖØĞÂ¿ªÊ¼");
+		jBtnStart.setText("å¼€å§‹/é‡æ–°å¼€å§‹");
 		jBtnStart.addActionListener(new TypeGameFrame_jBtnStart_actionAdapter(this));
 		mylister=new MyListener();
 		jBtnStart.addKeyListener(mylister);
 
-		// ÔİÍ£
+		// æš‚åœ
 		/**
 		 * TODO
 		 */
 		jBtnPause1.setBounds(new Rectangle(580, 189, 164, 31));
-		jBtnPause1.setText("ÔİÍ£");
+		jBtnPause1.setText("æš‚åœ");
 		jBtnPause1.addActionListener(new TypeGameFrame_jBtnPause1_actionAdapter(this));
 		jBtnPause1.addMouseListener(new MouseLister());
-		// ÔİÍ£2¿ªÊ¼
+		// æš‚åœ2å¼€å§‹
 		/**
 		 * TODO
 		 */
 		jBtnPause2.setBounds(new Rectangle(580, 189, 164, 31));
-		jBtnPause2.setText("È¡ÏûÔİÍ£");
+		jBtnPause2.setText("å–æ¶ˆæš‚åœ");
 		jBtnPause2.setVisible(false);
 		jBtnPause2.addActionListener(new TypeGameFrame_jBtnPause2_actionAdapter(this));
 		jBtnPause2.addMouseListener(new MouseLister());
 		
-		// ½áÊø
+		// ç»“æŸ
 		jBtnStop.setBounds(new Rectangle(580, 224, 164, 31));
-		jBtnStop.setText("½áÊø(ÍË³ö)");
+		jBtnStop.setText("ç»“æŸ(é€€å‡º)");
 		jBtnStop.addActionListener(new TypeGameFrame_jBtnStop_actionAdapter(this));
 
-		// ËÙ¶È
+		// é€Ÿåº¦
 		jSlider1.setBounds(new Rectangle(580, 22, 164, 21));
 		jSlider1.setMaximum(100);
 		jSlider1.setMinimum(1);
@@ -154,13 +159,13 @@ public class TypeGameFrame extends JFrame implements Runnable {
 			public void stateChanged(ChangeEvent e) {
 				rapidity = jSlider1.getValue();
 				byte nTmpRapidity = (byte) (101 - rapidity);
-				jLblRate1.setText("ÉèÖÃËÙ¶È(1-100):" + nTmpRapidity);
+				jLblRate1.setText("è®¾ç½®é€Ÿåº¦(1-100):" + nTmpRapidity);
 			}
 		});
-		jLblRate1.setText("ÉèÖÃËÙ¶È(1-100):50");
+		jLblRate1.setText("è®¾ç½®é€Ÿåº¦(1-100):50");
 		jLblRate1.setBounds(new Rectangle(580, 4, 149, 18));
 
-		// ÊıÁ¿
+		// æ•°é‡
 		jSlider3.setBounds(new Rectangle(580, 71, 164, 21));
 		
 		jSlider3.setMaximum(100);
@@ -171,14 +176,14 @@ public class TypeGameFrame extends JFrame implements Runnable {
 				rapidity3 = jSlider3.getValue();
 				byte nTmpRapidity = (byte) (101 - rapidity3);
 				count_geshu = 101 - rapidity3;
-				jLblRate3.setText("ÉèÖÃÊıÁ¿(10-100):" + nTmpRapidity + " ¸ö");
+				jLblRate3.setText("è®¾ç½®æ•°é‡(10-100):" + nTmpRapidity + " ä¸ª");
 			}
 		});
-		jLblRate3.setText("ÉèÖÃÊıÁ¿(10-100):20 ¸ö");
+		jLblRate3.setText("è®¾ç½®æ•°é‡(10-100):20 ä¸ª");
 		jLblRate3.setBounds(new Rectangle(580, 53, 149, 18));
 
 
-		// Ê±¼ä
+		// æ—¶é—´
 		jSlider2.setBounds(new Rectangle(580, 120, 164, 21));
 		jSlider2.setMaximum(100);
 		jSlider2.setMinimum(1);
@@ -190,15 +195,15 @@ public class TypeGameFrame extends JFrame implements Runnable {
 				rapidity2 = jSlider2.getValue();
 				byte nTmpRapidity = (byte) (101 - rapidity2);
 				time = 101 - rapidity2;
-				jLblTypedResult.setText("ÕıÈ·:0¸ö,´íÎó:0¸ö,Ê£ÓàÊ±¼ä:"+time+"s");
-				jLblRate2.setText("ÉèÖÃÊ±¼ä(5-100):" + nTmpRapidity + " Ãë");
+				jLblTypedResult.setText("æ­£ç¡®:0ä¸ª,é”™è¯¯:0ä¸ª,å‰©ä½™æ—¶é—´:"+time+"s");
+				jLblRate2.setText("è®¾ç½®æ—¶é—´(5-100):" + nTmpRapidity + " ç§’");
 			}
 		});
-		jLblRate2.setText("ÉèÖÃÊ±¼ä(5-100):10 Ãë");
+		jLblRate2.setText("è®¾ç½®æ—¶é—´(5-100):10 ç§’");
 		
 		jLblRate2.setBounds(new Rectangle(580, 102, 149, 18));
-		// ´ò×Ö½á¹û
-		jLblTypedResult.setText("ÕıÈ·:0¸ö,´íÎó:0¸ö,Ê£ÓàÊ±¼ä:10s");
+		// æ‰“å­—ç»“æœ
+		jLblTypedResult.setText("æ­£ç¡®:0ä¸ª,é”™è¯¯:0ä¸ª,å‰©ä½™æ—¶é—´:10s");
 		jLblTypedResult.setBounds(new Rectangle(256, 423, 211, 21));
 
 		contentPane.add(jMainPanel);
@@ -218,7 +223,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 
 	public void run() {
 		number.clear();
-		jLblTypedResult.setText("ÕıÈ·:0¸ö,´íÎó:0¸ö,Ê£ÓàÊ±¼ä:10s");
+		jLblTypedResult.setText("æ­£ç¡®:0ä¸ª,é”™è¯¯:0ä¸ª,å‰©ä½™æ—¶é—´:10s");
 		nTypedCorrectNum = 0;
 		nTypedErrorNum = 0;
 		paiduan = "true";
@@ -239,15 +244,15 @@ public class TypeGameFrame extends JFrame implements Runnable {
 						t.start();
 						count += 1;	
 						tempTime= time-1-(int) (t4-t1-timeNum)/1000;
-						jLblTypedResult.setText("ÕıÈ·:" + nTypedCorrectNum + "¸ö,´íÎó:" + nTypedErrorNum + "¸ö"+",Ê£ÓàÊ±¼ä:"+tempTime+"s");	
+						jLblTypedResult.setText("æ­£ç¡®:" + nTypedCorrectNum + "ä¸ª,é”™è¯¯:" + nTypedErrorNum + "ä¸ª"+",å‰©ä½™æ—¶é—´:"+tempTime+"s");	
 						Thread.sleep(500);
 						}else{
-							jLblTypedResult.setText("ÕıÈ·:" + nTypedCorrectNum + "¸ö,´íÎó:" + nTypedErrorNum + "¸ö"+",Ê£ÓàÊ±¼ä:"+tempTime+"s");
+							jLblTypedResult.setText("æ­£ç¡®:" + nTypedCorrectNum + "ä¸ª,é”™è¯¯:" + nTypedErrorNum + "ä¸ª"+",å‰©ä½™æ—¶é—´:"+tempTime+"s");
 							Thread.sleep(100);	
 						}
 						// Thread.sleep(500 + (int) (Math.random() * 1000)); //
-						// Éú²úÏÂ×éÍ£¶ÙÊ±¼ä
-						// ×î¿ì0.5¿ì.×îÂı1Ãë
+						// ç”Ÿäº§ä¸‹ç»„åœé¡¿æ—¶é—´
+						// æœ€å¿«0.5å¿«.æœ€æ…¢1ç§’
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}					
@@ -258,7 +263,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 							break;
 						}else{
 							tempTime= time-1-(int) (t4-t1-timeNum)/1000;
-							jLblTypedResult.setText("ÕıÈ·:" + nTypedCorrectNum + "¸ö,´íÎó:" + nTypedErrorNum + "¸ö"+",Ê£ÓàÊ±¼ä:"+tempTime+"s");
+							jLblTypedResult.setText("æ­£ç¡®:" + nTypedCorrectNum + "ä¸ª,é”™è¯¯:" + nTypedErrorNum + "ä¸ª"+",å‰©ä½™æ—¶é—´:"+tempTime+"s");
 					
 						}						
 					   Thread.sleep(100);												
@@ -274,7 +279,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 		
 		fo = false;
 		int falseNum=count_geshu -nTypedCorrectNum;
-		JOptionPane.showMessageDialog(null, "ÕıÈ·:" + nTypedCorrectNum + "¸ö,´íÎó:" + falseNum + "¸ö");
+		JOptionPane.showMessageDialog(null, "æ­£ç¡®:" + nTypedCorrectNum + "ä¸ª,é”™è¯¯:" + falseNum + "ä¸ª");
 	}
 
 	public void jBtnStart_actionPerformed(ActionEvent e) {
@@ -284,7 +289,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 			bean.getShow().setVisible(false);
 		}
 		t1 = System.currentTimeMillis();
-		jLblTypedResult.setText("ÕıÈ·:0¸ö,´íÎó:0¸ö,Ê£ÓàÊ±¼ä:10s");
+		jLblTypedResult.setText("æ­£ç¡®:0ä¸ª,é”™è¯¯:0ä¸ª,å‰©ä½™æ—¶é—´:10s");
 		number.clear();
 		nTypedCorrectNum = 0;
 		nTypedErrorNum = 0;
@@ -298,7 +303,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 		t.start();
 	}
 
-	// ÔİÍ£
+	// æš‚åœ
 	public void jBtnPause1_actionPerformed(ActionEvent e1) {
 		t2 = System.currentTimeMillis();
 		t3 = t2;
@@ -306,11 +311,11 @@ public class TypeGameFrame extends JFrame implements Runnable {
 		pause = false;
 		jBtnPause1.setVisible(false);
 		jBtnPause2.setVisible(true);
-		JOptionPane.showMessageDialog(null, "ÔİÍ£ÖĞ,ÎŞ·¨´ò×Ö");
+		JOptionPane.showMessageDialog(null, "æš‚åœä¸­,æ— æ³•æ‰“å­—");
 	//	jBtnStart.removeKeyListener(mylister);
 	}
 
-	// ÔİÍ£2¿ªÊ¼
+	// æš‚åœ2å¼€å§‹
 	public void jBtnPause2_actionPerformed(ActionEvent e2) {
 		t3 = System.currentTimeMillis();
 		timeNum +=t3 -t2;
@@ -339,11 +344,11 @@ public class TypeGameFrame extends JFrame implements Runnable {
 		public void run() {
 			// boolean fo = true;			
 		//	int tempTime= time-2-(int) (t4-t1-timeNum)/1000;
-		//	jLblTypedResult.setText("ÕıÈ·:" + nTypedCorrectNum + "¸ö,´íÎó:" + nTypedErrorNum + "¸ö"+",Ê£ÓàÊ±¼ä:"+tempTime);				
+		//	jLblTypedResult.setText("æ­£ç¡®:" + nTypedCorrectNum + "ä¸ª,é”™è¯¯:" + nTypedErrorNum + "ä¸ª"+",å‰©ä½™æ—¶é—´:"+tempTime);				
 			int Y = 0, X = 0;
 			// int temp_y=0;
 			JLabel show = new JLabel();
-			show.setFont(new java.awt.Font("ËÎÌå", Font.PLAIN, 43));
+			show.setFont(new java.awt.Font("å®‹ä½“", Font.PLAIN, 43));
 			jMainPanel.add(show);
 			X = 10 + (int) (Math.random() * 400);
 			String parameter = chrList[(int) (Math.random() * chrList.length)] + "";
@@ -353,7 +358,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 			number.add(bean);
 			show.setText(parameter);
 			while (fo) {
-				// ---------------------Êı×ÖÏÂÒÆ--------------------
+				// ---------------------æ•°å­—ä¸‹ç§»--------------------
 				if (pause) {
 					show.setBounds(new Rectangle(X, Y += 2, 33, 33));
 				} else {
@@ -370,7 +375,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 						if (parameter.equalsIgnoreCase(bn.getParameter())) {
 							nTypedErrorNum += 1;
 					//	int	tempTime= time-1-(int) (t4-t1-timeNum)/1000;
-					//		jLblTypedResult.setText("ÕıÈ·:" + nTypedCorrectNum + "¸ö,´íÎó:" + nTypedErrorNum + "¸ö"+",Ê£ÓàÊ±¼ä:"+tempTime);
+					//		jLblTypedResult.setText("æ­£ç¡®:" + nTypedCorrectNum + "ä¸ª,é”™è¯¯:" + nTypedErrorNum + "ä¸ª"+",å‰©ä½™æ—¶é—´:"+tempTime);
 							number.removeElementAt(i);
 							Music_shibai.play();
 							break;
@@ -383,7 +388,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 	}
 
 	/**
-	 * ¼àÌı¼üÅÌ£¬Í³¼ÆÕıÈ·µÄ¸öÊı
+	 * ç›‘å¬é”®ç›˜ï¼Œç»Ÿè®¡æ­£ç¡®çš„ä¸ªæ•°
 	 *
 	 */
 	class MyListener extends KeyAdapter {
@@ -421,7 +426,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 			exception.printStackTrace();
 		}
 
-		// ´´½¨´°¿Ú
+		// åˆ›å»ºçª—å£
 		TypeGameFrame gameFrame = new TypeGameFrame();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = gameFrame.getSize();
@@ -438,7 +443,7 @@ public class TypeGameFrame extends JFrame implements Runnable {
 }
 
 /**
- * Í£Ö¹°´Å¥ÊÊÅäÆ÷
+ * åœæ­¢æŒ‰é’®é€‚é…å™¨
  */
 class TypeGameFrame_jBtnStop_actionAdapter implements ActionListener {
 	private TypeGameFrame adaptee;
@@ -453,7 +458,7 @@ class TypeGameFrame_jBtnStop_actionAdapter implements ActionListener {
 }
 
 /**
- * ¿ªÊ¼°´Å¥ÊÊÅäÆ÷
+ * å¼€å§‹æŒ‰é’®é€‚é…å™¨
  */
 class TypeGameFrame_jBtnStart_actionAdapter implements ActionListener {
 	private TypeGameFrame adaptee;
@@ -468,7 +473,7 @@ class TypeGameFrame_jBtnStart_actionAdapter implements ActionListener {
 }
 
 /**
- * ÔİÍ£°´Å¥ÊÊÅäÆ÷
+ * æš‚åœæŒ‰é’®é€‚é…å™¨
  */
 class TypeGameFrame_jBtnPause1_actionAdapter implements ActionListener {
 	private TypeGameFrame adaptee;
@@ -483,7 +488,7 @@ class TypeGameFrame_jBtnPause1_actionAdapter implements ActionListener {
 }
 
 /**
- * ÔİÍ£2¿ªÊ¼°´Å¥ÊÊÅäÆ÷
+ * æš‚åœ2å¼€å§‹æŒ‰é’®é€‚é…å™¨
  */
 class TypeGameFrame_jBtnPause2_actionAdapter implements ActionListener {
 	private TypeGameFrame adaptee;
